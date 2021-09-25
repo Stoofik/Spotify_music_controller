@@ -1,9 +1,13 @@
 import React from "react";
+import HomePage from "./HomePage";
 
 function App() {
 
     return (
-        <h1>Hello React Django</h1>
+        <div>
+            <HomePage />
+        </div>
+
     );
 }
 
