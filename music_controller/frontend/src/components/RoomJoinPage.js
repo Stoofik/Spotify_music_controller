@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 
 const RoomJoinPage = props => {
     return (
-        <p>
+        <div>
             This is the Room Join page.
-        </p>
+        </div>
     )
 }
 
