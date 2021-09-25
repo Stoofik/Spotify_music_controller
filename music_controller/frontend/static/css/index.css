@@ -1,1 +1,13 @@
-/* No CSS *//*# sourceMappingURL=index.css.map */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+main .app {
+  font-size: 100%;
+}
+/*# sourceMappingURL=index.css.map */
