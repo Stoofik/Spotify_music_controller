@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -11,21 +12,29 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { RadioGroup } from '@material-ui/core';
 
+// default when user does not specify how many votes to skip a song
 let defaultVotes = 2;
 
+// creating the room
 const CreateRoomPage = () => {
 
+    // setting up state variables 
     const [votesToSkip, setVotesToSkip] = useState(defaultVotes);
     const [guestCanPause, setGuestCanPause] = useState(true);
 
+    // assigning a new value if uses changes votes to skip
     const handleVotesChange = (e) => {
         setVotesToSkip(e.target.value);
     }
 
+    // assigning a new variables when user changes if guest can pause music
     const handleGuestCanPauseChange = (e) => {
         setGuestCanPause(e.target.value === "true" ? true : false);
     }
 
+    // defining a history instance
+    let history = useHistory();
+    // creating a room when button is pressed
     const handleRoomButtonPressed = () => {
         const requestOptions = {
             method: "POST",
@@ -38,9 +47,10 @@ const CreateRoomPage = () => {
                 guest_can_pause: guestCanPause
             }),
         };
+        // fetching the data a redirecting to the newly created room
         fetch("/api/create-room/", requestOptions).
             then((response) => response.json())
-            .then((data) => console.log(data));
+            .then((data) => history.push("/room/" + data.code));
     }
 
     return (
@@ -101,16 +111,6 @@ const CreateRoomPage = () => {
             </Grid>
         </Grid>
     );
-}
-
-CreateRoomPage.defaultProps = {
-    guestCanPause: true,
-    votesToSkip: defaultVotes,
-}
-
-CreateRoomPage.propTypes = {
-    guestCanPause: PropTypes.bool,
-    votesToSkip: PropTypes.number.isRequired,
 }
 
 export default CreateRoomPage
