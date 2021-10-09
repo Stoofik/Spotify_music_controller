@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
@@ -12,8 +13,25 @@ const RoomJoinPage = () => {
         setRoomCode(e.target.value);
     }
 
+    let history = useHistory()
+
     const roomButtonPressed = (e) => {
-        console.log(roomCode)
+        const requestOptions = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+                code: roomCode
+            })
+        };
+        fetch("/api/join-room/", requestOptions).then((response) => {
+            if (response.ok) {
+                history.push(`/room/${roomCode}`);
+            } else {
+                setError("Room not found");
+            }
+        }).catch((error) => {
+            console.log(error);
+        });
     }
 
 
