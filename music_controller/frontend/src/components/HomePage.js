@@ -35,7 +35,7 @@ const HomePage = () => {
                         <Button color="primary" to="/join" component={ Link }>
                             Join a Room
                         </Button>
-                        <Button color="secondary">
+                        <Button color="secondary" to="/create" component={ Link }>
                             Create a Room
                         </Button>
                     </ButtonGroup>

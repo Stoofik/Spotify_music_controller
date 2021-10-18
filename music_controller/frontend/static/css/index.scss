@@ -20,8 +20,9 @@ main {
     height: 100%;
 
     .container {
-      width: 100%;
+      width: 50%;
       height: 50%;
+      margin: auto;
       display: flex;
       justify-content: center;
       align-items: center;
