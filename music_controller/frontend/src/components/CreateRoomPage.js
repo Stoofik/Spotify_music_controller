@@ -12,6 +12,7 @@ const CreateRoomPage = (props) => {
     const [votesToSkip, setVotesToSkip] = useState(props.votesToSkip);
     const [errorMsg, setErrorMsg] = useState("");
     const [successMsg, setSuccessMsg] = useState("");
+
     // assigning a new value if uses changes votes to skip
     const handleVotesChange = (e) => {
         setVotesToSkip(e.target.value);
@@ -24,6 +25,7 @@ const CreateRoomPage = (props) => {
 
     // defining a history instance
     let history = useHistory();
+
     // creating a room when button is pressed
     const handleRoomButtonPressed = () => {
         const requestOptions = {
@@ -43,6 +45,7 @@ const CreateRoomPage = (props) => {
             .then((data) => history.push("/room/" + data.code));
     }
 
+    // updating the room when button is pressed
     const handleUpdateButtonPressed = () => {
         const requestOptions = {
             method: "PATCH",
@@ -67,6 +70,7 @@ const CreateRoomPage = (props) => {
         });
     }
 
+    // rendering buttons to create a room or get back
     const renderCreateButtons = () => {
         return (
             <Grid container spacing={1}>
@@ -80,6 +84,8 @@ const CreateRoomPage = (props) => {
         );
     }
 
+
+    // rending a button to update the room
     const renderUpdateButtons = () => {
         return (
             <Grid item xs={12} align="center">
@@ -90,12 +96,15 @@ const CreateRoomPage = (props) => {
 
 
     // setting up variables to distunguish between creating and updating a room
+    // if update is true we want to show title update room, else show create a room
     const title = props.update ? "Update a Room" : "Create a Room"
 
     return (
         
         <Grid container spacing={1} align="center">
             <Grid item xs={12}>
+                {/* pop up message to alert the user if they updated the room */}
+                {/* if error or succes message exists, show either one */}
                 <Collapse in={ errorMsg != "" || successMsg != "" }>
                     { successMsg != "" ? (
                     <Alert severity="success" onClose={()=> {setSuccessMsg("")}}>
